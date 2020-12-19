@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ReactState</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/react/16.8.6/umd/react.production.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/react-dom/16.8.6/umd/react-dom.production.min.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+
+    <script type="text/babel">
+      class HotState extends React.Component {
+        // 要传递 props 属性 ？？ 我咋不记得了
+        constructor(props) {
+          super(props);
+          this.state = {
+            isHot: true
+          };
+          this.handleClick = this.handleClick.bind(this);
+        }
+        handleClick() {
+          this.setState({
+            isHot: !this.state.isHot
+          });
+        }
+        render() {
+          return (
+            // 注意这里的函数不能加括号 因为 React 在渲染组件的时候 发现组件是一个class类 那么他就是创建一个这个类的实例 然后调用
+            // 实例上的render方法 执行render方法的返回值 所以 如果这里传递的函数带了括号 那么React就会直接执行该函数 拿到函数的返回值
+            // 赋值给onClick
+            // state的改变会导致 组件的重新渲染 初始化的时候 组件也会被render一次
+            <h2 onClick={this.handleClick}>
+              天气很{this.state.isHot ? "炎热" : "凉爽"}
+            </h2>
+          );
+        }
+      }
+      ReactDOM.render(<HotState />, document.getElementById("root"));
+    </script>
+  </body>
+</html>
