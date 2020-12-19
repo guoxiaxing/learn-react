@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ReacClassComp</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/react/16.8.6/umd/react.production.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/react-dom/16.8.6/umd/react-dom.production.min.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+
+    <script type="text/babel">
+      class Demo extends React.Component {
+        // 必须有 render 方法
+        render() {
+          return <h2>类组件</h2>;
+        }
+      }
+      // React 在渲染页面的时候 发现React 组件是使用类定义的 那么它就会 new 出来一个该类的实例对象 并且调用 render 方法利用其返回的
+      // 内容来渲染到页面
+      ReactDOM.render(<Demo />, document.getElementById("root"));
+      // 简单组件 没有状态 state 函数式组件 没有this 所以没有state
+      // 复杂组件 有状态 state state是挂在this 也就是组件实例上的 所以必须是类组件
+    </script>
+  </body>
+</html>
