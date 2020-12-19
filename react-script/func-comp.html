@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ReacFuncComp</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/react/16.8.6/umd/react.production.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/react-dom/16.8.6/umd/react-dom.production.min.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+
+    <script type="text/babel">
+      function Demo() {
+        return <h2>函数式组件</h2>;
+      }
+      // React 发现你的组件是一个函数 那么会自动调用一个函数 将函数返回的虚拟DOM转换为真实的DOM渲染出来
+      ReactDOM.render(<Demo />, document.getElementById("root"));
+    </script>
+  </body>
+</html>
