@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ReactListDemo</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/react/16.8.6/umd/react.production.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/react-dom/16.8.6/umd/react-dom.production.min.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+
+    <script type="text/babel">
+      const frames = ["React", "Vue", "Angular"];
+      // 如果给React{}传递一个数组 React会自动将数组中的元素遍历出来
+      // {} 表达式中直接传递一个对象时 React 是不能直接遍历的 传递一个数组的时候可以帮我们直接将数组中的元素给一次输出
+      const list = (
+        <div>
+          <h1>前端框架列表</h1>
+          <ul>
+            {frames.map(frame => (
+              <li key={frame}>{frame}</li>
+            ))}
+          </ul>
+        </div>
+      );
+      ReactDOM.render(list, document.getElementById("root"));
+    </script>
+  </body>
+</html>
