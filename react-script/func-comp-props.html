@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ReacClassComp</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/react/16.8.6/umd/react.production.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/react-dom/16.8.6/umd/react-dom.production.min.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+
+    <script type="text/babel">
+      // 函数式组件接收props的方式 通过参数
+      function Demo(props) {
+        return <h2>函数组件 {props.name}</h2>;
+      }
+      // 函数是组件也还是可以使用 函数名.propTypes 和 函数名.defaultProps 对其属性进行限制
+      ReactDOM.render(<Demo name="demo" />, document.getElementById("root"));
+    </script>
+  </body>
+</html>
