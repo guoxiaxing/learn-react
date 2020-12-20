@@ -15,8 +15,15 @@
       class Demo extends React.Component {
         handleClick = () => {
           // 字符串类型的 ref 存在一定的效率问题 不推荐使用
+          // 回调 ref 存在的问题
+          // 如果你的ref回调是通过 内联函数的形式定义的 那么在组件更新的时候 他会被调用两次 第一次传递的值是null 第二次传递的值才是我们的
+          // DOM 元素
+          // 真是因为每次更新的时候都会创建一个新的函数实例 所以 React 会清空旧的 ref 并设置新的 但是在我们的使用上没有什么大的影响
           const { leftInput, rightInput } = this;
           console.log(leftInput, rightInput);
+        };
+        saveInput = input => {
+          this.rightInput = input;
         };
         render() {
           return (
@@ -31,13 +38,8 @@
               &nbsp;
               <button onClick={this.handleClick}>Click Show Data</button>
               &nbsp;
-              <input
-                ref={input => {
-                  this.rightInput = input;
-                }}
-                type="text"
-                placeholder="右侧数据"
-              />
+              {/* 解决方式 使用类方法解决 内联函数被调用两次的问题*/}
+              <input ref={this.saveInput} type="text" placeholder="右侧数据" />
             </div>
           );
         }
