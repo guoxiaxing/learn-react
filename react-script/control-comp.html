@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ControlComp</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/react/16.8.6/umd/react.production.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/react-dom/16.8.6/umd/react-dom.production.min.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+
+    <script type="text/babel">
+      class Login extends React.Component {
+        // 受控组件 将表单的输入维护在状态中
+        constructor(props) {
+          super(props);
+          this.state = {
+            username: "",
+            password: ""
+          };
+        }
+        login = event => {
+          event.preventDefault();
+          console.log(this.state);
+        };
+        handleUserName = event => {
+          this.setState({
+            username: event.target.value
+          });
+        };
+        handlePassWord = (type, event) => {
+          return event => {
+            this.setState({
+              [type]: event.target.value
+            });
+          };
+        };
+
+        render() {
+          return (
+            <form onSubmit={this.login} action="/">
+              <input
+                type="text"
+                onChange={this.handleUserName}
+                name="username"
+                placeholder="用户名"
+              />
+              &nbsp;
+              {/* 手动传递 event */}
+              <input
+                onChange={event => this.handlePassWord("password", event)}
+                type="password"
+                name="password"
+                placeholder="密码"
+              />
+              &nbsp;
+              <button>Login</button>
+            </form>
+          );
+        }
+      }
+      ReactDOM.render(<Login />, document.getElementById("root"));
+    </script>
+  </body>
+</html>
