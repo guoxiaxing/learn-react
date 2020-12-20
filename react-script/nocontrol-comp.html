@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NocontrolComp</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/react/16.8.6/umd/react.production.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/react-dom/16.8.6/umd/react-dom.production.min.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+
+    <script type="text/babel">
+      class Login extends React.Component {
+        login = event => {
+          event.preventDefault();
+
+          // 如果不想页面发生跳转（刷新） 阻止默认表单的默认事件即可
+          const { username, password } = this;
+          alert(username.value + "--------" + password.value);
+          //   return false; // 这个并没有生效 唉
+        };
+        render() {
+          // 不设置 action 的话默认会提交到当前页面 会导致页面刷新
+          return (
+            <form onSubmit={this.login} action="/">
+              <input
+                ref={u => {
+                  this.username = u;
+                }}
+                type="text"
+                name="username"
+                placeholder="用户名"
+              />
+              &nbsp;
+              <input
+                ref={p => {
+                  this.password = p;
+                }}
+                type="password"
+                name="password"
+                placeholder="密码"
+              />
+              &nbsp;
+              <button>Login</button>
+            </form>
+          );
+        }
+      }
+      ReactDOM.render(<Login />, document.getElementById("root"));
+    </script>
+  </body>
+</html>
