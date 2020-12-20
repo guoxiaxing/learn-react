@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CreateRef</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/react/16.8.6/umd/react.production.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/react-dom/16.8.6/umd/react-dom.production.min.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+
+    <script type="text/babel">
+      class Demo extends React.Component {
+        // React.createRef 会创建一个容器
+        myRef = React.createRef();
+        handleClick = () => {
+          console.log(this.myRef);
+          // this.myRef 的 current 属性就是我们的 input 元素
+        };
+        render() {
+          return (
+            <div>
+              <input ref={this.myRef} type="text" placeholder="左侧数据" />
+              &nbsp;
+              <button onClick={this.handleClick}>Click Show Data</button>
+            </div>
+          );
+        }
+      }
+      // React 发现你的组件是一个函数 那么会自动调用一个函数 将函数返回的虚拟DOM转换为真实的DOM渲染出来
+      ReactDOM.render(<Demo />, document.getElementById("root"));
+    </script>
+  </body>
+</html>
