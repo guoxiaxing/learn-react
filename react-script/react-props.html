@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ReactProps</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/react/16.8.6/umd/react.production.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/react-dom/16.8.6/umd/react-dom.production.min.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+
+    <script type="text/babel">
+      class Props extends React.Component {
+        constructor(props) {
+          super(props);
+        }
+        render() {
+          const { name, age } = this.props;
+          return (
+            <ul>
+              <li>姓名：{name}</li>
+              <li>年龄：{age}</li>
+            </ul>
+          );
+        }
+      }
+      // react 批量传递属性
+      const props = { name: "Mei", age: 20 };
+      // 但是需要注意一下 在React这里使用的{}并不是我们要浅拷贝一个对象的{}，这里表示的是 里面要写JS的表达式了 因为React+babel
+      // 就允许我们使用 ... 来展开一个对象 但是只适用于标签上来传递属性
+      ReactDOM.render(<Props {...props} />, document.getElementById("root"));
+      // 展开运算符不能直接展开一个对象
+      // console.log(...props); //报错
+      // 但是可以使用展开运算符浅拷贝一个对象
+      const cloneProps = { ...props };
+      console.log(cloneProps);
+
+      // React 依次传递属性
+      // ReactDOM.render(
+      //   <Props name="Lily" age={18} />,
+      //   document.getElementById("root")
+      // );
+    </script>
+  </body>
+</html>
