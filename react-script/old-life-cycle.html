@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OldLifeCycle</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/react/16.8.6/umd/react.production.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/react-dom/16.8.6/umd/react-dom.production.min.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+
+    <script type="text/babel">
+      class OldLifeCycle extends React.Component {
+        // 正常更新 状态改变组件更新
+        // 强制更新 状态没有发生改变时我想让组件更新 forceUpdate forceUpdate 会绕过 shouldComponentUpdate 生命周期 不管该生命
+        // 周期的返回值是true or false 作用于这个生命周期之后
+        // 受控组件 将表单的输入维护在状态中
+        constructor(props) {
+          console.log("constructor");
+          super(props);
+          this.state = {
+            count: 0
+          };
+          // this.state = {
+          //   opacity: 1
+          // };
+          // this.timer;
+        }
+        // 组件挂载完毕调用
+        componentDidMount() {
+          console.log("componentDidMount");
+          // this.timer = setInterval(() => {
+          //   console.log(123);
+          //   this.state.opacity > 0
+          //     ? this.setState({
+          //         opacity: this.state.opacity - 0.1
+          //       })
+          //     : clearInterval(this.timer);
+          // }, 200);
+        }
+
+        componentWillRecieveProps(props) {
+          // 组件已经存在且从父组件中接收到新的属性时触发
+          // props 是接收到的最新的属性
+          console.log("componentWillRecieveProps", props);
+        }
+        // 组件将要挂载
+        componentWillMount() {
+          console.log("componentWillMount");
+        }
+        componentWillUnmount() {
+          console.log("componentWillUnmount");
+          // this.timer && clearInterval(this.timer);
+        }
+        // 组件是否更新
+        shouldComponentUpdate() {
+          console.log("shouldComponentUpdate");
+          // 返回值必须是一个布尔值 返回 true 组件更新 依次执行 componentWillUpdate render componentDidUpdate
+          // 返回 false 则 componentWillUpdate render componentDidUpdate 不会被执行 组件的值不会被更新 组件也不会被重新渲染
+          return false;
+        }
+        componentWillUpdate() {
+          console.log("componentWillUpdate");
+        }
+        componentDidUpdate() {
+          console.log("componentDidUpdate");
+        }
+        destroy = () => {
+          ReactDOM.unmountComponentAtNode(document.getElementById("root"));
+        };
+        // hideText = () => {
+        //   // this.timer && clearInterval(this.timer);
+        //   // 更好的方式是在 componentWillUnmount 生命周期中做这件事
+        //   // 卸载组件
+        //   ReactDOM.unmountComponentAtNode(document.getElementById("root"));
+        // };
+
+        add = () => {
+          this.setState({
+            count: this.state.count + 1
+          });
+        };
+        force = () => {
+          this.forceUpdate();
+        };
+        render() {
+          console.log("render");
+          return (
+            <div>
+              {/*<h1 style={{ opacity: this.state.opacity }}>
+                React 学不会怎么办？？？
+              </h1>
+            <button onClick={this.hideText}>不活了</button>*/}
+              <h2>当前求和为 {this.state.count}</h2>
+              <button onClick={this.add}>点我+1</button>
+              &nbsp;
+              <button onClick={this.destroy}>卸载组件</button>
+              &nbsp;
+              <button onClick={this.force}>强制更新</button>
+            </div>
+          );
+        }
+      }
+      ReactDOM.render(<OldLifeCycle />, document.getElementById("root"));
+    </script>
+  </body>
+</html>
