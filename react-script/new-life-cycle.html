@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NewLifeCycle</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/react/17.0.1/umd/react.development.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/react-dom/17.0.1/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+
+    <script type="text/babel">
+      // componentWillRecieveProps componentWillMount componentWillUpdate 将被废弃掉的原因是 在将来的Recat的异步渲染中
+      // 他们可能会被误用
+
+      // 新的生命周期
+      // 挂载时： constructor - getDerivedStateFromProps - render - componentDidMount
+      // 更新时： newprops/setState/forceUpdate - getDerivedStateFromProps - shouldComponentUpdate - render - getSnapshotBeforeUpdate - componentDidUpdate
+      // 卸载时： componentWillUnmount
+      class NewLifeCycle extends React.Component {
+        constructor(props) {
+          console.log("constructor");
+          super(props);
+          this.state = {
+            count: 0
+          };
+        }
+        // 组件挂载完毕调用
+        componentDidMount() {
+          console.log("componentDidMount");
+        }
+        // 静态方法 必须返回一个对象或者null
+        // 适用于 state 的值只取决于 props 的情况 因为返回的这个对象 组件会直接代替我们的 state 且组件内部是无法更新它的
+        static getDerivedStateFromProps(props, state) {
+          // 可接受到组件上的属性
+          // 第一个参数是属性 第二个参数是当前最新的state
+          console.log("getDerivedStateFromPoprs", props, state);
+          return null;
+          // 会用我们返回的对象代替我们 state （注意是直接替换 而不是 patch） 但是会让我们的状态不能更新
+          // return {
+          //   count: 2
+          // };
+          // return props;
+        }
+
+        // 旧生命周期 UNSAFE_componentWillRecieveProps
+        // componentWillRecieveProps(props) {
+        //   console.log("componentWillRecieveProps", props);
+        // }
+        // 组件将要挂载 // 旧生命周期  UNSAFE_componentWillMount 18.x版本必须要加 UNSAFE 才可以使用
+        // componentWillMount() {
+        //   console.log("componentWillMount");
+        // }
+        componentWillUnmount() {
+          console.log("componentWillUnmount");
+        }
+        // 组件是否更新 UNSAFE_componentWillUpdate
+        shouldComponentUpdate() {
+          console.log("shouldComponentUpdate");
+          // 返回值必须是一个布尔值 返回 true 组件更新 依次执行 componentWillUpdate render componentDidUpdate
+          // 返回 false 则 componentWillUpdate render componentDidUpdate 不会被执行 组件的值不会被更新 组件也不会被重新渲染
+          return true;
+        }
+        // 旧生命周期
+        // componentWillUpdate() {
+        //   console.log("componentWillUpdate");
+        // }
+        componentDidUpdate(prevProps, prevState, snapshot) {
+          // 第一个参数是组件上的旧属性 第二个参数是更新前的state
+          console.log("componentDidUpdate", prevProps, prevState, snapshot);
+        }
+        // 必须要返回一个 snapshot value(任何值都可以作为一个快照值)/null 不能返回undefined
+        // 在最近一次渲染之前调用 （提交到DOM之前调用，组件还没被渲染到页面）返回值会被传递给 componentDidUpdate 的第三个参数
+        getSnapshotBeforeUpdate(prevProps, prevState) {
+          console.log("getSnapshotBeforeUpdate");
+          // return null;
+          return "testtest";
+        }
+        destroy = () => {
+          ReactDOM.unmountComponentAtNode(document.getElementById("root"));
+        };
+
+        add = () => {
+          this.setState({
+            count: this.state.count + 1
+          });
+        };
+        force = () => {
+          this.forceUpdate();
+        };
+        render() {
+          console.log("render");
+          return (
+            <div>
+              <h2>当前求和为 {this.state.count}</h2>
+              <button onClick={this.add}>点我+1</button>
+              &nbsp;
+              <button onClick={this.destroy}>卸载组件</button>
+              &nbsp;
+              <button onClick={this.force}>强制更新</button>
+            </div>
+          );
+        }
+      }
+      ReactDOM.render(
+        <NewLifeCycle count={5} />,
+        document.getElementById("root")
+      );
+    </script>
+  </body>
+</html>
