@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>News</title>
+    <style>
+      .news {
+        height: 30px;
+      }
+      .list {
+        width: 200px;
+        height: 150px;
+        background-color: skyblue;
+        overflow: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/react/17.0.1/umd/react.development.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/react-dom/17.0.1/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+
+    <script type="text/babel">
+      class News extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = {
+            newsArr: []
+          };
+        }
+        componentDidMount() {
+          setInterval(() => {
+            const { newsArr } = this.state;
+            // 模拟一条新闻
+            const news = `新闻${newsArr.length + 1}`;
+            newsArr.unshift(news);
+            this.setState({
+              newsArr
+            });
+          }, 1000);
+        }
+
+        componentDidUpdate(prevProps, prevState, scrollHeight) {
+          // 新版本React 本来就可以记录滚动条位置？？？？ 加上这个反而 有问题了
+          // this.refs.list.scrollTop +=
+          //   this.refs.list.scrollHeight - scrollHeight;
+          // console.log(this.refs.list.scrollTop);
+        }
+        getSnapshotBeforeUpdate(prevProps, prevState) {
+          return this.refs.list.scrollHeight;
+        }
+        render() {
+          return (
+            <div className="list" ref="list">
+              {this.state.newsArr.map(news => (
+                <div className="news" key={news}>
+                  {news}
+                </div>
+              ))}
+            </div>
+          );
+        }
+      }
+      ReactDOM.render(<News />, document.getElementById("root"));
+    </script>
+  </body>
+</html>
