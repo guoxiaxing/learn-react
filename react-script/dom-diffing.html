@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Diff</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/react/17.0.1/umd/react.development.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/react-dom/17.0.1/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+
+    <script type="text/babel">
+      // diff 算法的最小粒度是 标签 / 节点
+      // 关于 react/vue 中 key 的问题
+      // 1. vue/react 中 key 的作用是什么
+      // 2. 为什么 key 不能用 index
+      // 1. 虚拟 DOM 中 key 的作用：
+      //  简单的说 key 是虚拟DOM的标识 在更新显示时 key 起着重要的作用
+      //  详细的说 当状态中的数据发生变化的时候 react 会根据新数据生成新的虚拟DOM --- 所以只要有新数据 就会有新的虚拟DOM
+      //  然后 React 会对新旧 DOM 进行 diff 比较 比较规则
+      //  1. 旧的虚拟DOM中找到了与新的虚拟DOM相同的key
+      // a. 若虚拟DOM中的内容没变 则直接使用之前真实的DOM
+
+      // b. 若虚拟DOM的内容变了 则生成新的真实的DOM 并且用新的真实的DOM替换掉页面中原来的真实的DOM
+
+      // 2. 旧的虚拟DOM中未找到与新的虚拟DOM相同的key 根据数据创建新的真实的 DOM 渲染到页面上
+
+      // 2. 用index作为key时会导致的问题
+
+      // 1. 若对数据进行 逆序添加/删除 等破坏顺序操作  会产生没有必要的真实DOM的更新 页面展示没问题 但效率低
+      // 2. 若结构中还包含输入类的 DOM 那么 会产生错误的 DOM 更新 === 界面有错误
+      // 3. 注意！如果不存在 逆序添加/删除等破坏顺序操作 仅用于渲染列表用于展示 那么使用index是没有问题的
+
+      // 3. 开发中如何选择 key
+      // 稳定 且 唯一 id/学号/身份证号
+      // 如果仅用于列表渲染展示 使用 index 作为 key 是可以的
+    </script>
+  </body>
+</html>
