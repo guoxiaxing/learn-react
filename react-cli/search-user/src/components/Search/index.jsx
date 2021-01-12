@@ -45,6 +45,7 @@ export default class Search extends Component {
         if (data.ok) {
           return data.json(data);
         } else {
+          // 传入的值默认作为 错误对象的 message 属性
           throw new Error(data.statusText);
         }
       })
