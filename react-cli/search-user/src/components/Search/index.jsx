@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { Input, Button } from "antd";
+import axios from "axios";
+import PubSub from "pubsub-js";
+
 import "./index.css";
-import PropTypes from "prop-types";
+import { UPDATE_STATE } from "../../eventType";
 
 export default class Search extends Component {
-  static propTypes = {
-    searchUser: PropTypes.func.isRequired
-  };
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
@@ -15,10 +15,30 @@ export default class Search extends Component {
       inputValue: ""
     };
   }
+  searchUser = userName => {
+    PubSub.publish(UPDATE_STATE, {
+      isFirst: false,
+      isLoading: true
+    });
+    axios
+      .get(`https://api.github.com/search/users?q=${userName}`)
+      .then(({ data }) => {
+        PubSub.publish(UPDATE_STATE, {
+          users: data.items,
+          isLoading: false
+        });
+      })
+      .catch(e => {
+        PubSub.publish(UPDATE_STATE, {
+          isLoading: false,
+          error: e.message
+        });
+      });
+  };
   search = () => {
     const value = this.state.inputValue.trim();
     if (value) {
-      this.props.searchUser(this.state.inputValue);
+      this.searchUser(this.state.inputValue);
       this.setState({
         inputValue: ""
       });
