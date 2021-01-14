@@ -1,7 +1,7 @@
 import "./App.css";
 import "antd/dist/antd.css";
 import { Breadcrumb } from "antd";
-import { Route, Link, BrowserRouter as Router } from "react-router-dom";
+import { Route, NavLink, BrowserRouter as Router } from "react-router-dom";
 import Home from "./components/Home";
 import About from "./components/About";
 
@@ -14,10 +14,18 @@ function App() {
           <h1>React Router Demo</h1>
           <Breadcrumb>
             <Breadcrumb.Item>
-              <Link to="/home">Home</Link>
+              {/* NavLink 有高亮效果 */}
+              <NavLink to="/home" activeClassName="my-active">
+                Home
+              </NavLink>
+              {/* <Link to="/home">Home</Link> */}
             </Breadcrumb.Item>
             <Breadcrumb.Item>
-              <Link to="/about">About</Link>
+              {/* 为选中的路由自定义样式 默认为选中的路由加的类名是active */}
+              <NavLink to="/about" activeClassName="my-active">
+                About
+              </NavLink>
+              {/* <Link to="/about">About</Link> */}
             </Breadcrumb.Item>
           </Breadcrumb>
 
