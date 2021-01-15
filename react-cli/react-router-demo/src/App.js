@@ -1,9 +1,10 @@
 import "./App.css";
 import "antd/dist/antd.css";
 import { Breadcrumb } from "antd";
-import { Route, NavLink, BrowserRouter as Router } from "react-router-dom";
+import { Route, BrowserRouter as Router } from "react-router-dom";
 import Home from "./components/Home";
 import About from "./components/About";
+import MyNavLink from "./components/MyNavLink";
 
 function App() {
   return (
@@ -15,16 +16,22 @@ function App() {
           <Breadcrumb>
             <Breadcrumb.Item>
               {/* NavLink 有高亮效果 */}
-              <NavLink to="/home" activeClassName="my-active">
+              {/* <NavLink to="/home" activeClassName="my-active">
                 Home
-              </NavLink>
+              </NavLink> */}
+              <MyNavLink path="/home" className="my-active">
+                Home
+              </MyNavLink>
               {/* <Link to="/home">Home</Link> */}
             </Breadcrumb.Item>
             <Breadcrumb.Item>
               {/* 为选中的路由自定义样式 默认为选中的路由加的类名是active */}
-              <NavLink to="/about" activeClassName="my-active">
+              {/* <NavLink to="/about" activeClassName="my-active">
                 About
-              </NavLink>
+              </NavLink> */}
+              <MyNavLink path="/about" className="my-active">
+                About
+              </MyNavLink>
               {/* <Link to="/about">About</Link> */}
             </Breadcrumb.Item>
           </Breadcrumb>
