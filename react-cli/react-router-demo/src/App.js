@@ -1,7 +1,7 @@
 import "./App.css";
 import "antd/dist/antd.css";
 import { Breadcrumb } from "antd";
-import { Route, BrowserRouter as Router } from "react-router-dom";
+import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import Home from "./components/Home";
 import About from "./components/About";
 import MyNavLink from "./components/MyNavLink";
@@ -19,7 +19,7 @@ function App() {
               {/* <NavLink to="/home" activeClassName="my-active">
                 Home
               </NavLink> */}
-              <MyNavLink path="/home" className="my-active">
+              <MyNavLink path="/home/a" className="my-active">
                 Home
               </MyNavLink>
               {/* <Link to="/home">Home</Link> */}
@@ -35,9 +35,14 @@ function App() {
               {/* <Link to="/about">About</Link> */}
             </Breadcrumb.Item>
           </Breadcrumb>
-
-          <Route path="/home" component={Home} />
-          <Route path="/about" component={About} />
+          {/* 如果同一个路由设置了多个组件 那么当匹配到这个路由时这些组件都会被展示出来 */}
+          {/* 默认当url的path参数改变时会依次查找所有路径 找到相同的就展示对应的组件 */}
+          {/* 解决方式  使用 Switch 包裹所有的Route组件 这样只要匹配到了一个就直接展示 不会再向下查找 */}
+          <Switch>
+            {/* 开启精准匹配 */}
+            <Route path="/home" exact component={Home} />
+            <Route path="/about" component={About} />
+          </Switch>
         </>
       </Router>
     </div>
