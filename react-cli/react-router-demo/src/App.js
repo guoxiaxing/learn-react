@@ -45,7 +45,9 @@ function App() {
           {/* 解决方式  使用 Switch 包裹所有的Route组件 这样只要匹配到了一个就直接展示 不会再向下查找 */}
           <Switch>
             {/* 开启精准匹配 */}
-            <Route path="/home" exact component={Home} />
+            {/* 注意 如果有嵌套路由时 不能开启严格模式 否则点击子路由的时候会导致无法 match 父路由 而被redirect  */}
+            {/* <Route path="/home" exact component={Home} /> */}
+            <Route path="/home" component={Home} />
             <Route path="/about" component={About} />
             {/* 一般写在路由的最后 */}
             <Redirect to="/home" />
