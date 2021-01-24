@@ -17,14 +17,21 @@ export default class Message extends Component {
           renderItem={(item, index) => (
             <List.Item>
               {/* 路由组件携带参数 1 path参数 路由链接携带参数 */}
-              <MyNavlink path={"/home/message/" + (index + 1)}>
+              {/* <MyNavlink path={"/home/message/" + (index + 1)}>
+                {item}
+              </MyNavlink> */}
+              {/* 传递 query/search 参数 */}
+              <MyNavlink path={"/home/message?id=" + (index + 1)}>
                 {item}
               </MyNavlink>
             </List.Item>
           )}
         />
         {/* 路由组件携带参数 1 path参数  声明接收*/}
-        <Route path="/home/message/:id" component={Detail} />
+        {/* <Route path="/home/message/:id" component={Detail} /> */}
+
+        {/*  声明接收 search 参数 search 参数无须声明接收*/}
+        <Route path="/home/message" component={Detail} />
       </>
     );
   }
