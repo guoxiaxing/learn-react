@@ -1,11 +1,34 @@
 import React, { Component } from "react";
-import { List } from "antd";
+import { List, Button } from "antd";
 import { Route } from "react-router-dom";
 
 import MyNavlink from "../../MyNavLink";
 import Detail from "./Detail";
 
 export default class Message extends Component {
+  // 编程式路由
+  push = id => {
+    // 路由跳转携带path参数
+    // this.props.history.push(`/home/message/${id}`);
+    // 路由跳转携带search参数
+    // this.props.history.push(`/home/message?id=${id}`);
+    // 路由跳转携带state参数
+    // 使用state时 第一个参数是路径 第二个参数接受一个对象 就是我们的state对象
+    this.props.history.push(`/home/message`, { id });
+  };
+  replace = id => {
+    this.props.history.replace(`/home/message/${id}`);
+  };
+
+  forward = () => {
+    this.props.history.goForward();
+    // this.props.history.go(1);
+  };
+
+  back = () => {
+    this.props.history.goBack();
+    // this.props.history.go(-1);
+  };
   render() {
     return (
       <>
@@ -32,6 +55,18 @@ export default class Message extends Component {
               >
                 {item}
               </MyNavlink>
+              <Button size="small" onClick={() => this.push(index + 1)}>
+                push 查看
+              </Button>
+              <Button size="small" onClick={() => this.replace(index + 1)}>
+                replace 查看
+              </Button>
+              <Button size="small" onClick={this.forward}>
+                前进
+              </Button>
+              <Button size="small" onClick={this.back}>
+                后退
+              </Button>
             </List.Item>
           )}
         />

@@ -17,12 +17,7 @@ export default class Home extends Component {
             </MyNavLink>
           </Breadcrumb.Item>
           <Breadcrumb.Item>
-            {/* 路由默认是push模式 可以给Link标签加上replace属性来开启replace模式 */}
-            <MyNavLink
-              replace={true}
-              path="/home/message"
-              className="my-active"
-            >
+            <MyNavLink path="/home/message" className="my-active">
               Message
             </MyNavLink>
           </Breadcrumb.Item>
