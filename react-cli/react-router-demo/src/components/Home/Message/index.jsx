@@ -20,15 +20,6 @@ export default class Message extends Component {
     this.props.history.replace(`/home/message/${id}`);
   };
 
-  forward = () => {
-    this.props.history.goForward();
-    // this.props.history.go(1);
-  };
-
-  back = () => {
-    this.props.history.goBack();
-    // this.props.history.go(-1);
-  };
   render() {
     return (
       <>
@@ -60,12 +51,6 @@ export default class Message extends Component {
               </Button>
               <Button size="small" onClick={() => this.replace(index + 1)}>
                 replace 查看
-              </Button>
-              <Button size="small" onClick={this.forward}>
-                前进
-              </Button>
-              <Button size="small" onClick={this.back}>
-                后退
               </Button>
             </List.Item>
           )}
