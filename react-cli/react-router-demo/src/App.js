@@ -5,8 +5,8 @@ import {
   Route,
   BrowserRouter as Router,
   Switch,
-  Redirect,
-  withRouter
+  Redirect
+  // withRouter
 } from "react-router-dom";
 import Home from "./components/Home";
 import About from "./components/About";
@@ -17,15 +17,15 @@ import React, { Component } from "react";
 class App extends Component {
   // 此时当我们点击前进/后退按钮的时候会报错  this.props.history 为 undefined
   // 原因 是 只有路由组件才会有 this.props.history App 是一个普通组件 使用 withRouter 来解决
-  forward = () => {
-    this.props.history.goForward();
-    // this.props.history.go(1);
-  };
+  // forward = () => {
+  //   this.props.history.goForward();
+  //   // this.props.history.go(1);
+  // };
 
-  back = () => {
-    this.props.history.goBack();
-    // this.props.history.go(-1);
-  };
+  // back = () => {
+  //   this.props.history.goBack();
+  //   // this.props.history.go(-1);
+  // };
   render() {
     console.log(this.props, "APP");
     return (
@@ -34,12 +34,12 @@ class App extends Component {
           {/** 只能有一个子元素  Link 和 Route 都需要包裹在 Router中使用 而且整个应用需要用同一个 Router 去管理*/}
           <>
             <h1>React Router Demo</h1>
-            <Button size="small" onClick={this.forward}>
+            {/* <Button size="small" onClick={this.forward}>
               前进
             </Button>
             <Button size="small" onClick={this.back}>
               后退
-            </Button>
+            </Button> */}
             <Breadcrumb>
               <Breadcrumb.Item>
                 {/* NavLink 有高亮效果 */}
@@ -84,4 +84,6 @@ class App extends Component {
 // withRouter 接受 一个一般组件 然后给一般组件的props上加上路由组件才有的几个属性
 // withRouter 的返回值是一个新的组件
 // 但是需要注意的是 widthRouter 返回的组件 也需要在 Router 路由组件的内部使用
-export default withRouter(App);
+// export default withRouter(App);
+
+export default App;
