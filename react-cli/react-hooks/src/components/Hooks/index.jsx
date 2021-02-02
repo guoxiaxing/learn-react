@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 // import { Button } from "antd";
+import { Input, Button } from "antd";
 
 export default function HookDemo() {
   // useState传入的值仅作为初始的state值
   const [count, setCount] = useState(0);
+  const input = useRef(null);
 
   // const add = () => {
   //   // setCount(count + 1);
@@ -22,11 +24,17 @@ export default function HookDemo() {
     };
   }, []);
 
+  const show = () => {
+    alert(input.current ? input.current.state.value : "no data");
+  };
+
   return (
     <div>
       {/* <h1>当前求和为：{count}</h1>
       <Button onClick={add}>Add</Button> */}
       <h1>当前值为：{count}</h1>
+      <Input ref={input} />
+      <Button onClick={show}>Show</Button>
     </div>
   );
 }
