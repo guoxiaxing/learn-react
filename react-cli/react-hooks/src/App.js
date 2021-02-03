@@ -1,6 +1,7 @@
 import "./App.css";
 // import Demo from "./components/setState";
 import "antd/dist/antd.css";
+import Parent from "./components/Optimization";
 // import { Breadcrumb, Spin } from "antd";
 // import {
 //   Route,
@@ -12,7 +13,7 @@ import "antd/dist/antd.css";
 // import Home from "./components/Home";
 // import About from "./components/About";
 // import { lazy, Suspense } from "react";
-import HookDemo from "./components/Hooks";
+// import HookDemo from "./components/Hooks";
 
 // 路由懒加载
 // const Home = lazy(() => import("./components/Home"));
@@ -25,6 +26,7 @@ function App() {
     // </div>
 
     <div className="App">
+      <Parent />
       {/* <Router>
         <>
           <h1>React Router Demo</h1>
@@ -46,7 +48,7 @@ function App() {
           </Switch>
         </>
       </Router> */}
-      <HookDemo />
+      {/* <HookDemo /> */}
     </div>
   );
 }

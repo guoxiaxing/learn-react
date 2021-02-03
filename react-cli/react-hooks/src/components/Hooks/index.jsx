@@ -6,6 +6,8 @@ export default function HookDemo() {
   // useState传入的值仅作为初始的state值
   const [count, setCount] = useState(0);
   const input = useRef(null);
+  // Fragment 会在 React 编译完成之后被去掉 而且它只接受一个 key 属性
+  // <></> 标签与 Fragment 标签的区别就是 它不能有任何的属性
 
   // const add = () => {
   //   // setCount(count + 1);
@@ -25,7 +27,7 @@ export default function HookDemo() {
   }, []);
 
   const show = () => {
-    alert(input.current ? input.current.state.value : "no data");
+    alert(input.current.state.value ? input.current.state.value : "no data");
   };
 
   return (
