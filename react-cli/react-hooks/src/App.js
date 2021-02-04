@@ -1,7 +1,7 @@
 import "./App.css";
 // import Demo from "./components/setState";
 import "antd/dist/antd.css";
-import Parent from "./components/RenderProps";
+import Parent from "./components/ErrorBoundary/Parent";
 // import { Breadcrumb, Spin } from "antd";
 // import {
 //   Route,
